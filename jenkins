@@ -1,0 +1,46 @@
+pipeline {
+  agent any
+
+  environment {
+    IMAGE = "us-west2-docker.pkg.dev/lyrical-tooling/test-repo/python-image"
+    CLUSTER = "test-cluster"
+    CLUSTER_REGION = "us-central1"
+    DEPLOYMENT_NAME = "py-service"
+    GOOGLE_APPLICATION_CREDENTIALS = credentials('GCP-ID')
+  }
+
+  stages {
+    stage('Checkout Code') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Docker Build') {
+      steps {
+        sh "docker build -t ${IMAGE} ."
+      }
+    }
+
+    stage('Push to Artifact Registry') {
+      steps {
+        sh "gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}"
+        sh "gcloud auth configure-docker ${IMAGE.split('/')[0]}"
+        sh "docker push ${IMAGE}"
+      }
+    }
+
+    stage('Get GKE Credentials') {
+      steps {
+        sh "gcloud container clusters get-credentials ${CLUSTER} --region ${CLUSTER_REGION}"
+      }
+    }
+
+    stage('Deploy to GKE') {
+      steps {
+        sh "kubectl apply -f k8s/deployment.yaml"
+        sh "kubectl apply -f k8s/service.yaml"
+      }
+    }
+  }
+}
