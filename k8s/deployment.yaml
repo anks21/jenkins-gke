@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: py-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: py-service
+  template:
+    metadata:
+      labels:
+        app: py-service
+    spec:
+      containers:
+        - name: py-container
+          image: us-west2-docker.pkg.dev/lyrical-tooling/test-repo/python-image
+          ports:
+            - containerPort: 8080
