@@ -6,7 +6,7 @@ pipeline {
     CLUSTER = "test-cluster"
     CLUSTER_REGION = "us-central1"
     DEPLOYMENT_NAME = "py-service"
-    GOOGLE_APPLICATION_CREDENTIALS = credentials('GCP-ID')
+    GOOGLE_APPLICATION_CREDENTIALS = credentials('GCP_CREDENTIALS')
   }
 
   stages {
