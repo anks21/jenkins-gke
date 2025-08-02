@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: py-container
-          image: us-west2-docker.pkg.dev/lyrical-tooling/test-repo/python-image
+          image: asia-south1-docker.pkg.dev/project-anny/demo-repo/python-image
           ports:
             - containerPort: 8080
