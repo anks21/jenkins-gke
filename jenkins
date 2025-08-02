@@ -4,7 +4,7 @@ pipeline {
   environment {
     IMAGE = "us-west2-docker.pkg.dev/project-anny/test-repo/python-image"
     CLUSTER = "test-cluster"
-    CLUSTER_REGION = "us-central1"
+    CLUSTER_REGION = "asia-south1"
     DEPLOYMENT_NAME = "py-service"
     GOOGLE_APPLICATION_CREDENTIALS = credentials('GCP_CREDENTIALS')
   }
