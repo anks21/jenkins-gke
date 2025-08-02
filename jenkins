@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    IMAGE = "us-west2-docker.pkg.dev/project-anny/test-repo/python-image"
+    IMAGE = "asia-south1-docker.pkg.dev/project-anny/demo-repo/python-image:latest"
     CLUSTER = "test-cluster"
     CLUSTER_REGION = "asia-south1"
     DEPLOYMENT_NAME = "py-service"
