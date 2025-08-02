@@ -25,6 +25,7 @@ pipeline {
     stage('Push to Artifact Registry') {
       steps {
         sh "gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}"
+        sh "gcloud config set project project-anny"
         sh "gcloud auth configure-docker ${IMAGE.split('/')[0]}"
         sh "docker push ${IMAGE}"
       }
